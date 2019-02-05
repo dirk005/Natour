@@ -1,0 +1,75 @@
+@mixin clearfix {
+        &::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+}
+
+@mixin absCenter {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+//MEDIA QUERY MANAGER
+/*
+0 - 600px             : Phone
+600px -900px      : Tablet potrait
+900px -1200px    : Tablet landscape
+1200px - 1800px : Normal styles
+1800px  +            : Big desktop
+
+    $breakpoint  argument choises
+    -phone
+    -tab-port
+    -tab-land
+    -big-desktop
+
+    1em = 16px
+
+    Order : base > typeography > genaral layout + grid > page layout > components
+*/
+@mixin respond($breakpoint){
+    @if $breakpoint == phone {
+        @media only screen and (max-width : 37.5em){ @content };   // 600px /16px
+    }
+     @if $breakpoint == tab-port {
+        @media only screen and (max-width : 56.25em){ @content };   // 900px /16px
+    }
+     @if $breakpoint == tab-land {
+        @media only screen and (max-width : 75em){ @content };      // 1200px /16px
+    }
+     @if $breakpoint == big-desktop {
+        @media only screen and (min-width : 112.5em){ @content };   // 1800px /16px
+    }
+}
+
+@mixin respondImage{
+     @media only screen and (min-resolution :192dpi) and  (min-width: 37.5em),
+                    only screen and (-webkit-min-device-pixal-ratio:2 ) and (min-width: 37.5em), //For safari
+                    only screen and (min-width:125em) {
+                            @content;
+                        }
+}
+
+// Supports mixins
+
+@mixin supportsClipPath{
+     @supports ( -webkit-clip-path: polygon(0 0 )) or (clip-path: polygon(0 0)){
+        @content;
+    }
+}
+
+@mixin supportsBackgroundClip{
+     @supports (-webkit-background-clip: text) or (background-clip: text){
+        @content;
+    }
+}
+
+@mixin supportsObjectFit{
+     @supports (object-fit: cover) {
+        @content;
+    }
+}
