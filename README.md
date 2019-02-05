@@ -11,5 +11,5 @@
 
 ## To build this project
 - run these following commands on your terminal/ cmd prompt
-  - cd Sass-starter-template
+  - cd Natour
   - npm run build:css
